@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import dj_database_url
+from pathlib import Path
 
 # import pymysql
 # pymysql.install_as_MySQLdb()
@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'q3awwj%((d15yq_@3$lae81nu7ezx=(9z0&b^$q7mn*po4u01f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -95,6 +95,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASE 변수 이후에 추가해야 함
 DATABASES['default'].update(dj_database_url.config(conn_max_age=500))
 ### mysql
 # DATABASES = {
