@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'storages',
     'shop',
     'django.contrib.sites',
     'allauth',
@@ -149,11 +150,11 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATICFILES_DIRS = [BASE_DIR / 'static']
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -170,3 +171,23 @@ CART_ID = 'cart_in_session'
 
 IAMPORT_KEY = '9528069785878654'
 IAMPORT_SECRET = 'e0e1d5a7715c2212f669e3a8fc101748e5d77bc7924af27961dc6fc19115dd38c3a6658086a70f7c'
+
+AWS_ACCESS_KEY_ID = 'AKIA5FVBSIRULGL7WTGM'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_REGION = 'ap-northeast-2'
+AWS_STORAGE_BUCKET_NAME = 'onlineshop-minjeongkim'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+
+AWS_S3_FILE_OVERWRITE = False
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = 'static'
+# STATIC_URL = '/static/'
+STATIC_URL = 'http://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  # S3에 내용을 기록함
+
+DEFAULT_FILE_STORAGE = 'config.asset_storage.MediaStorage'
